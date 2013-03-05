@@ -32,6 +32,11 @@ describe "and_call_original" do
       expect(value).to eq([:submitted_arg, :additional_yielded_arg])
     end
 
+    it 'throws an error if arguments given when not expected' do
+      instance.should_receive(:meth_1).and_call_original
+      expect { instance.meth_1(:unwanted_arg) }.to raise_error
+    end
+
     context "for singleton methods" do
       it 'works' do
         def instance.foo; :bar; end
